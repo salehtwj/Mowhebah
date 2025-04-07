@@ -39,3 +39,36 @@ If you want to modify and enhance the features of the website. The below informa
 1. Font awesome
 2. Bootstrap
 =======
+
+## Getting Started
+
+These instructions will get the project running on your local machine for development and testing.
+
+### 🔧 Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/salehtwj/Mawhiba-AI.git
+   cd Mawhiba-AI
+   ```
+2. Install backend dependencies:
+  ```bash
+  npnpm install
+  cd client
+  npm install
+  cd ..
+  ```
+3. Set up the Python environment:
+  ```bash
+  python -m venv venv
+  source venv/bin/activate  # On Windows: venv\Scripts\activate
+  pip install -r requirements.txt
+  ```
+3. Start the project::
+  ```bash
+  python app.py
+  ```
+
+### Requirements
+  
+  SQL Server with a database named mawheb using the schema defined below.
