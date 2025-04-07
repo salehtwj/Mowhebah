@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <title> AI مرحباً بك في موهبة</title>
+
+  <style>
+    body {
+        background: url('static/css/img/home2.png') no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    a {color: #ddd}
+            
+ol {
+  counter-reset: li; 
+  list-style: none; 
+  padding: 0;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  width: 100%;
+  margin-right: 70%;
+ /* margin-left: 30%; */
+}
+
+ol li {
+  position: relative;
+  display: block;
+  padding: .4em 3em .4em 2em;
+  margin: .5em 0;
+  background: #DAD2CA;
+  color: #444;
+  text-decoration: none;
+  border-radius: .3em;
+  transition: .3s ease-out;
+  text-align: right;
+  
+}
+
+ol li:hover { 
+   background: rgba(218, 210, 202, 0.279); /* خلفية شفافة */
+   color:#444;}
+ol li:hover:before { transform: rotate(360deg); }
+ol li:before {
+  content: counter(li);
+  counter-increment: li;
+  position: absolute;
+  right: -0.48em;
+  top: 50%;
+  margin-top: -1.3em;
+  background: #DAD2CA;
+  color: #444;
+  height: 2.5em;
+  width: 2.5em;
+  line-height: 2em;
+  border: .3em solid #fff;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2em;
+  transition: all .3s ease-out;
+}
+    
+.mySlides {display:none;}
+
+.features-container {
+    display: grid;
+    grid-template-columns: 800px 450px 1fr; /* 3 أعمدة بأحجام مختلفة */
+    gap: 5px; /* مسافة بين العناصر */
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1); /* خلفية شفافة */
+  border: 2px solid white; /* إطار أبيض */
+  color: white; /* لون النص أبيض */
+  padding: 15px;
+  border-radius: 10px; /* زوايا ناعمة */
+  backdrop-filter: blur(5px); /* تأثير ضبابي */
+  position: relative;
+  display: block;
+  padding: .4em 3em .4em 2em;
+  margin: .7em 0;
+  text-decoration: none;
+  border-radius: .3em;
+  transition: .3s ease-out;
+  text-align: right;
+}
+
+
+
+.timeline {
+  --accent: rgb(96, 228, 255);
+  --text: white;
+  --line: #c4c4c4;
+  background: var(--background);
+  color: var(--text);
+  padding-left: 60px;
+  padding-right: 60px;
+  direction: rtl;
+  text-align: right;
+}
+
+.timeline h1 {
+  border-right: 4px solid var(--accent);
+  padding: 10px 12px 10px;
+  padding-left: 240px;
+}
+
+.timeline ul {
+  list-style: none;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--items), 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  direction: rtl;
+}
+
+.timeline ul:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  border-top: 3px solid var(--text);
+  left: auto;
+  right: 11px; /* نقل الخط إلى اليمين */
+}
+
+.timeline ul:after {
+  content: "\f04b";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: -10px;
+  font-size: 25px;
+  color: var(--accent);
+  right: var(--circle-size); /* نقل النقاط إلى اليمين */ 
+  left: -15px;  /* جعل السهم يبدأ من اليمين */
+  transform: rotate(180deg);  /* تدوير السهم ليشير للاتجاه المعاكس */
+}
+
+.timeline ul li {
+  --circle-size: 15px;
+  grid-column: var(--index);
+  overflow: hidden;
+  position: relative;
+  height: calc(100% + var(--circle-size) * 0.5);
+}
+
+.timeline ul li:after {
+  content: '';
+  width: var(--circle-size);
+  height: var(--circle-size);
+  background: var(--line);
+  position: absolute;
+  bottom: 0;
+  border-radius: 100px;
+  transform: translateX(-50%);
+  z-index: 1;
+  right: 0; /* تحريك النقطة إلى أقصى اليمين */
+  left: auto;
+}
+
+.timeline ul li:nth-child(even):after {
+  bottom: auto;
+  top: 0;
+}
+
+.timeline ul li:nth-child(even) {
+  grid-row: 2;
+  flex-direction: column;
+  align-items: flex-end; /* جعل العناصر تصطف لليمين */
+  padding-top: 60px;
+  margin-top: calc(var(--circle-size) * -0.45);
+}
+
+.timeline ul li:nth-child(odd) p:after,
+.timeline ul li:nth-child(even) h3:before {
+  content: "";
+  display: block;
+  border-left: 2px dashed var(--text);
+  height: 100vh;
+  margin-top: 10px;
+  position: absolute;
+  left: auto;
+  right: calc(var(--circle-size) - 1px); /* نقل الخط إلى اليمين */
+}
+
+.timeline ul li:nth-child(even) h3:before {
+  bottom: 100%;
+  margin-bottom: 5px;
+}
+
+.timeline ul li>* {
+  padding-left: 0;
+  padding-right: calc(var(--circle-size) * 0.4);
+}
+
+.timeline ul li h3 {
+  color: var(--accent);
+  margin: 0;
+  margin-bottom: 5px;
+  font-size: 1.6em;
+  position: relative;
+}
+
+.timeline ul li p {
+  margin: 0;
+  position: relative;
+  text-wrap: pretty;
+}
+
+@media (max-width: 568px) {
+  .timeline ul {
+    display: flex;
+    flex-direction: column;
+  }
+  .timeline ul li {
+    grid-column: 1 !important;
+    grid-row: var(--index) !important;
+    height: 100%;
+    padding-bottom: 30px;
+    padding-top: 10px;
+  }
+  .timeline ul:before,
+  .timeline ul:after,
+  .timeline ul li:after,
+  .timeline ul li:nth-child(even) h3:before,
+  .timeline ul li:last-child p:after {
+    display: none;
+    
+  }
+  .timeline ul li:first-child {
+    padding-top: 0;
+  }
+  .timeline ul li:nth-child(even) {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+  .timeline ul li p:after {
+    content: "";
+    display: block;
+    border-left: 2px dashed var(--text);
+    height: 100vh;
+    margin-top: 10px;
+    position: absolute;
+    left: calc(var(--circle-size) - 1px);
+  } 
+}
+    </style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-light mb-4">
+    <div class="container d-flex justify-content-between">
+        <!-- اللوجو إلى اليمين -->
+        <a class="nav-link" href="#" style=" color: #ffffff;">
+            تسجيل خروج
+            <img class="rounded-circle" style="width: 25px; height: 25px; margin-right: 5px;"
+                src="https://www.gravatar.com/avatar/anything?s=200&d=mm" 
+                alt="User Icon" />
+        </a>
+
+        <!-- باقي العناصر في المنتصف -->
+        <div class="collapse navbar-collapse justify-content-center" id="mobile-nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/contact">تواصل معنا</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/about">من نحن</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style="color: #ffffff;" href="/development">التطوير</a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/profiles">الموهوبون</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/posts">المنشورات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="#">الرئيسية</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- أيقونة المستخدم إلى اليسار -->
+        <div>
+            
+            <a class="navbar-brand mr-auto" href="#">
+                <img src="static/css/img/logo_white2.png" alt="Logo" style="height: 40px;">
+            </a>
+        </div>
+    </div>
+</nav>
+
+  <div class="landing">
+    <div class="dark-overlay landing-inner text-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <br><br><br><br>
+            <h1 class="display-3 mb-4">،اكتشف الموهوبين، طور إمكانياتهم <br>
+              !اربطهم بفرص المستقبل
+            </h1>
+            <p class="lead"> .تربط بين الموهوبين والكشافين باستخدام الذكاء الاصطناعي لتحليل الأداء، تقييم المهارات، وفتح أبواب الاحتراف في عالم الرياضة "AI موهبة"</p>
+            <hr />
+            <a href="register.html" class="btn btn-lg btn-info mr-2" style="background-color: rgb(137, 0, 206);">!انضم الآن </a>
+            <a href="/profiles" class="btn btn-lg btn-light"> استكشاف المواهب</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br>
+
+  
+
+<div class="features-container" style="padding: 0px;">
+  
+  <div style="padding-top: 50px;"> 
+    <img class="mySlides card" src="static/css/img/football1.jpg" style="width:70%; margin-left: 20%; padding: .3px;">
+    <img class="mySlides card" src="static/css/img/football2.jpg" style="width:70%; margin-left: 20%; padding: .3px;">
+    <img class="mySlides card" src="static/css/img/football3.jpg" style="width:70%; margin-left: 20%; padding: .3px;">
+    </div>
+
+<div>
+  <ol>
+    <li class="card" style="color: #DAD2CA;"><strong style="color: white;">تحليل أداء متطور</strong> <br> حمل فيديو مهاراتك واحصل على تقييم ذكي</li>
+    <li class="card" style="color: #DAD2CA;"> <strong style="color: white;"> تواصل مباشر مع الكشافين</strong> <br>  فرص احترافية في متناول يدك</li>
+    <li class="card" style="color: #DAD2CA;"> <strong style="color: white;">  تحديات رياضية تفاعلية</strong> <br>  نافس، تألق، واصعد في التصنيف</li>
+    <li class="card" style="color: #DAD2CA;">  <strong style="color: white;"> بيانات دقيقة</strong> <br> الكشافون يحصلون على تقارير مفصلة عن الموهوبين</li>
+    <li class="card" style="color: #DAD2CA;"> <strong style="color: white;"> مدرب افتراضي شخصي</strong> <br>خطط تدريبية مخصصة لكل لاعب</li>
+    <li class="card" style="color: #DAD2CA;"> <strong style="color: white;"> أخصائي تغذية افتراضي</strong> <br>خطط صحية متكاملة مصممة خصيصًا لك</li>
+</ol>
+</div>
+<h1 style="text-align: right; margin-right: 50px; padding-top: 165px;" class="text-light"> ابرز مــــا يميـزنــــا </h1>
+</div>
+
+<br><br><br>
+
+<div class="timeline" style="--items: 6;">
+  <h1>كيف تبدأ رحلتك كموهوب؟</h1><br>
+  <ul>
+    <li style="--index: 1">
+      <h3> 01 </h3>
+      <p> أنشئ حسابك – شارك بياناتك وتخصصك الرياضي.</p>
+    </li>
+    <li style="--index: 2">
+      <h3>02</h3>
+      <p>حمّل فيديوهاتك – الذكاء الاصطناعي يحلل أداءك فورًا!</p>
+    </li>
+    <li style="--index: 3">
+      <h3>03</h3>
+      <p>انضم إلى التحديات – نافس وحقق مراتب أعلى.</p>
+    </li>
+    <li style="--index: 4">
+      <h3>04</h3>
+      <p> تواصل مع أخصائي التغذية الافتراضي – احصل على خطط غذائية مخصصة لتعزيز لياقتك البدنية.</p>
+    </li>
+    <li style="--index: 5">
+      <h3>05</h3>
+      <p> تواصل مع المدرب الافتراضي الشخصي – احصل على خطة تدريب مخصصة لتطوير مهاراتك.</p>
+    </li>
+    <li style="--index: 6">
+      <h3>06</h3>
+      <p>احصل على فرص احترافية – المدربين والكشافين سيبحثون عنك!</p>
+    </li>
+  </ul>
+</div>
+
+<br><br><br>
+
+<div class="timeline" style="--items: 5;">
+  <h1>كيف تبدأ رحلتك ككاشف؟</h1><br>
+  <ul>
+    <li style="--index: 1">
+      <h3> 01 </h3>
+      <p>أنشئ حسابك ككشاف – وابدأ في استكشاف أفضل المواهب.</p>
+    </li>
+    <li style="--index: 2">
+      <h3>02</h3>
+      <p>  استخدم المساعد الذكي – تفاعل مع الذكاء الاصطناعي وابحث عن أفضل اللاعبين بسرعة وسهولة.</p>
+    </li>
+    <li style="--index: 3">
+      <h3>03</h3>
+      <p> طرح تحدي للموهوبين – قم بإنشاء تحديات رياضية لاكتشاف أفضل المهارات.</p>
+    </li>
+    <li style="--index: 4">
+      <h3>04</h3>
+      <p> حلل البيانات والتقارير – احصل على تقييمات دقيقة لكل موهبة.</p>
+    </li>
+    <li style="--index: 5">
+      <h3>05</h3>
+      <p> تواصل وابدأ رحلتك مع المواهب – سارع في اكتشاف نجوم المستقبل!</p>
+    </li>
+  </ul>
+</div>
+
+
+<div class="landing">
+    <div class="dark-overlay landing-inner text-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <br><br><br><br>
+            <h1 class="display-3 mb-4">جاهز لبدء رحلتك الاحترافية؟
+            </h1>
+            <p class="lead"> !سجّل الآن وانضم إلى شبكة المواهب والكشافين الاحترافية</p>
+            <hr />
+            <a href="/profiles" class="btn btn-lg btn-light">!انضم الآن </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<br><br><br>
+
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+  x[myIndex-1].style.display = "block";  
+  setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+</script>
+
+  <!-- Footer -->
+  <footer class="mt-5 p-4 text-center" style=" color: #ddd;">
+    &copy; 2025 AI منصة موهبة
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+/* أنماط صفحة التطوير */
+.development-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .development-card {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.3s;
+    background-color: white;
+  }
+  
+  .development-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  /* أنماط المحادثات */
+  .chatbot {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 350px;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.5);
+    transform-origin: bottom right;
+    box-shadow: 0 0 128px 0 rgba(0,0,0,0.1), 0 32px 64px -48px rgba(0,0,0,0.5);
+    transition: all 0.1s ease;
+    z-index: 1000;
+  }
+  
+  /* النمط الخاص بمساعد التطوير المهني */
+  .career-chatbot {
+    border-top: 5px solid #007bff;
+  }
+  
+  /* النمط الخاص بمساعد الصحة المهنية */
+  .health-chatbot {
+    border-top: 5px solid #28a745;
+    right: 400px;
+  }
+  
+  .show-career-chatbot .career-chatbot {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+  
+  .show-health-chatbot .health-chatbot {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+  
+  .chatbot header {
+    padding: 16px 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+  }
+  
+  .chatbot header h4 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .chatbot .chatbox {
+    height: 380px;
+    overflow-y: auto;
+    padding: 15px 20px 70px;
+  }
+  
+  .chatbot .chat-input {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    padding: 5px 20px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .chat-input textarea {
+    height: 55px;
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    max-height: 180px;
+    padding: 15px 15px 15px 0;
+    font-size: 0.95rem;
+  }
+  
+  .chat-input span {
+    align-self: center;
+    color: #724ae8;
+    cursor: pointer;
+    font-size: 1.35rem;
+  }
+  
+  .close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #878787;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  
+  .chatbox .chat {
+    display: flex;
+    margin: 15px 0;
+  }
+  
+  .chatbox .incoming {
+    align-items: flex-start;
+  }
+  
+  .chatbox .outgoing {
+    margin-left: auto;
+  }
+  
+  .chatbox .incoming span {
+    height: 32px;
+    width: 32px;
+    color: #fff;
+    cursor: default;
+    text-align: center;
+    line-height: 32px;
+    align-self: flex-start;
+    background: #724ae8;
+    border-radius: 4px;
+    margin: 0 10px 0 0;
+  }
+  
+  .chatbox .chat p {
+    white-space: pre-wrap;
+    padding: 12px 16px;
+    border-radius: 10px 10px 0 10px;
+    max-width: 75%;
+    color: #333;
+    font-size: 0.95rem;
+    background: #f2f2f2;
+  }
+  
+  .chatbox .incoming p {
+    border-radius: 10px 10px 10px 0;
+  }
+  
+  .chatbox .outgoing p {
+    background: #724ae8;
+    color: #fff;
+    border-radius: 10px 10px 0 10px;
+  }
+  
+  .chatbot-toggler {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    outline: none;
+    border: none;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #724ae8;
+    transition: all 0.2s ease;
+    z-index: 999;
+  }
+  
+  .career-chatbot-toggler {
+    background: #007bff;
+  }
+  
+  .health-chatbot-toggler {
+    background: #28a745;
+    right: 100px;
+  }
+  
+  body.show-career-chatbot .career-chatbot-toggler,
+  body.show-health-chatbot .health-chatbot-toggler {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0);
+  }
+  
+  .chatbot-toggler span {
+    color: #fff;
+    position: absolute;
+  }
+  
+  .chatbot-toggler span:last-child,
+  body.show-career-chatbot .career-chatbot-toggler span:first-child,
+  body.show-health-chatbot .health-chatbot-toggler span:first-child {
+    opacity: 0;
+  }
+  
+  body.show-career-chatbot .career-chatbot-toggler span:last-child,
+  body.show-health-chatbot .health-chatbot-toggler span:last-child {
+    opacity: 1;
+  }

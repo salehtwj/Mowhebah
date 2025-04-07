@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+    <title>الموهوبون</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    
+    <link rel="stylesheet" href="static/css/style_frame.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    
+    <script type="text/javascript" src="static/js/script.js"></script>
+    <script type="text/javascript" src="https://livejs.com/live.js"></script>
+
+    <style>
+      p {
+        color: #494949;
+        font-size: 11px;
+        font-weight:normal;
+      }
+      </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-light mb-4">
+    <div class="container d-flex justify-content-between">
+        <!-- اللوجو إلى اليمين -->
+        <a class="nav-link" href="#" style=" color: #ffffff;">
+            تسجيل خروج
+            <img class="rounded-circle" style="width: 25px; height: 25px; margin-right: 5px;"
+                src="https://www.gravatar.com/avatar/anything?s=200&d=mm" 
+                alt="User Icon" />
+        </a>
+
+        <!-- باقي العناصر في المنتصف -->
+        <div class="collapse navbar-collapse justify-content-center" id="mobile-nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/contact">تواصل معنا</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/about">من نحن</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/profiles">الموهوبون</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/posts">المنشورات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/">الرئيسية</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- أيقونة المستخدم إلى اليسار -->
+        <div>
+            
+            <a class="navbar-brand mr-auto" href="#">
+                <img src="static/css/img/logo_white2.png" alt="Logo" style="height: 40px;">
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+
+  <!-- Profiles -->
+  <div class="profiles">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center" style="color: #ddd;">الملفات الشخصية للموهوبين</h1>
+                <p class="lead text-center" style="color: #ddd;">تصفح وتواصل مع الموهوبين</p>
+
+         {% for candidate in data %}
+<div class="card card-body bg-light mb-3">
+  <div class="row">
+    <div class="col-2">
+        <img class="rounded-circle" src="https://www.gravatar.com/avatar/anything?s=200&d=mm" alt="" />
+    </div>
+    <div class="col-lg-6 col-md-4 col-8">
+        <h3>{{ candidate.name }}</h3>
+        <p>{{ candidate.description }}</p>
+        <p>تقييم الذكاء الاصطناعي: %{{ candidate.ai_score }}</p>
+        <p>العمر: {{ candidate.age }}</p>
+        <a href="profile.html?id={{ candidate.id }}" class="btn btn-info">عرض الملف</a>
+    </div>
+    <div class="col-md-4 d-none d-lg-block">
+        <h4>المهارات</h4>
+        <ul class="list-group">
+          {% for skill in candidate[6].split("،") %}
+          <li class="list-group-item"><i class="fa fa-check pr-1"></i> {{ skill }}</li>
+          {% endfor %}
+        </ul>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+                <!-- سيتم تحديث هذا الجزء ديناميكيًا عبر JavaScript -->
+                <div id="profiles-container"></div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<button class="chatbot-toggler">
+  <span class="material-symbols-rounded">mode_comment</span>
+  <span class="material-symbols-outlined">close</span>
+</button>
+<div class="chatbot">
+  <header>
+      <h4>Chatbot</h4>
+      <span class="close-btn material-symbols-outlined">close</span>
+  </header>
+  <ul class="chatbox">
+      <li class="chat incoming">
+          <span class="material-symbols-outlined">smart_toy</span>
+          <p>مرحبًا 👋<br>كيف يمكنني مساعدتك؟</p>
+      </li>
+  </ul>
+  <div class="chat-input">
+      <label for="file-input" class="attachment-icon">
+          <span class="material-symbols-outlined">attach_file</span>
+      </label>
+      <input type="file" id="file-input" style="display: none;">
+      <textarea style="font-size: 12px;" placeholder="أدخل رسالة..." spellcheck="false"></textarea>
+      <span id="send-btn" class="material-symbols-rounded">send</span>
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <footer class="mt-5 p-4 text-center" style=" color: #ddd;">
+    &copy; 2025 AI منصة موهبة
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+    <script>
+
+
+    </script>
+</body>
+
+</html>

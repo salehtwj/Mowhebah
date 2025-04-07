@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .iphoneX {
+    position: absolute;
+    top: 10%;
+    left: 70%;
+    background: #fff;
+    width: 315px;
+    height: 600px;
+    border-radius: 35px;
+    box-shadow: inset 0 0 15px rgba(0,0,0,.2), 0 40px 100px rgba(0, 0, 0, .4);
+    transition: .5s;
+    overflow: hidden; /* Ensures the iframe content stays within the iPhone X shape */
+  }
+  
+  .iphoneX::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+    background: #262626;
+    border-radius: 25px;
+    background: url(jahez.jpg);
+    background-size: cover;
+    transition: .5s;
+  }
+
+  .iphoneX:hover::before {
+    background: url(jahez.jpg);
+    background-size: cover;
+  }
+  
+  .iphoneX::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 130px;
+    height: 16px;
+    background: #fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  
+  .embedded-content  {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+    border-radius: 20px;
+    pointer-events: auto; /* Allows button interaction within the iframe */
+  }
+
