@@ -100,7 +100,7 @@
     <div class="col-md-4 d-none d-lg-block">
         <h4>المهارات</h4>
         <ul class="list-group">
-          {% for skill in candidate[6].split("،") %}
+          {% for skill in candidate.skills.split("،") %}
           <li class="list-group-item"><i class="fa fa-check pr-1"></i> {{ skill }}</li>
           {% endfor %}
         </ul>
