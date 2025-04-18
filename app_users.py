@@ -3,6 +3,8 @@ from langchain_rag import query_rag
 from chat_utils import ChatUtils
 from video_analyzer import analyze_video 
 import pymysql
+import uuid
+import os
 
 db_config = {
     'host': 'localhost',
@@ -11,6 +13,10 @@ db_config = {
     'database': "mawhebh",
     'charset': 'utf8mb4'  # لضمان دعم اللغة العربية
 }
+
+UPLOAD_FOLDER = 'challenges_videos'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 db = pymysql.connect(**db_config)
 cursor = db.cursor(pymysql.cursors.DictCursor)  # استخدام DictCursor لإرجاع النتائج كمصفوفة قواميس
@@ -28,31 +34,39 @@ def posts():
     return render_template("post2.html")  
 
 
-
-# # did not test it needed to rewrite
-# @app.route("/posts", methods=["GET", "POST"])
-# def posts():
-#     if request.method == "POST":
-#         if 'video' not in request.files:
-#             return render_template("post2.html", error="الرجاء رفع ملف الفيديو.")
-
-#         video = request.files['video']
-#         if video.filename == "":
-#             return render_template("post2.html", error="لم يتم اختيار أي ملف.")
-
-#         upload_folder = "static/uploads"
-#         os.makedirs(upload_folder, exist_ok=True)
-#         video_path = os.path.join(upload_folder, video.filename)
-#         video.save(video_path)
-
-#         try:
-#             analysis_result = analyze_video(video_path)
-#             return render_template("post2.html", analysis=analysis_result)
-#         except Exception as e:
-#             return render_template("post2.html", error=f"حدث خطأ أثناء تحليل الفيديو: {e}")
-
-#     return render_template("post2.html")
-
+@app.route("/analyze_video", methods=["POST"])
+def analyze_video_endpoint():
+    if 'video' not in request.files:
+        return jsonify({"error": "No video file provided"}), 400
+   
+    video_file = request.files['video']
+    if video_file.filename == '':
+        return jsonify({"error": "No video selected"}), 400
+    
+    # Get the challenge text
+    challenge = request.form.get('challenge', '')
+   
+    # Generate a unique filename to prevent collisions
+    filename = str(uuid.uuid4()) + os.path.splitext(video_file.filename)[1]
+    video_path = os.path.join(UPLOAD_FOLDER, filename)
+   
+    # Save the file temporarily
+    video_file.save(video_path)
+   
+    try:
+        # Analyze the video with challenge context
+        analysis_result = analyze_video(video_path, challenge)
+       
+        # Clean up the temporary file
+        os.remove(video_path)
+       
+        return jsonify({"result": analysis_result})
+    except Exception as e:
+        # Clean up in case of error
+        if os.path.exists(video_path):
+            os.remove(video_path)
+            print(e)
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/about")
 def about():
@@ -63,49 +77,61 @@ def contact():
     return render_template("contact.html")  
 
 
-# اخر تحديث وصلت له
-@app.route("/chat", methods=["POST"])
-def chat():
-    user_message = request.json["message"]
-
-    # إعادة تعيين المرشحين السابقين قبل استرجاع بيانات جديدة
-    session["best_candidates"] = None 
-
-    response_text, best_candidates = query_rag(user_message, 0.5)  # استرجاع القيمتين
-
-    # جلب بيانات الموهوبين من قاعدة البيانات
-    if best_candidates:
-        format_strings = ','.join(['%s'] * len(best_candidates))  # إنشاء placeholders للـ SQL
-        query = f"SELECT * FROM talenters WHERE id IN ({format_strings})"
-        cursor.execute(query, tuple(best_candidates))
-        candidates_data = cursor.fetchall()
-    else:
-        candidates_data = []
-
-    session["best_candidates"] = candidates_data  
-    # print(f"theis is the shape : {candidates_data.shape}")
-
-    return jsonify({"reply": response_text, "best_candidates": candidates_data})  # إرسال البيانات إلى الـ Front-End
-
-
-
 @app.route("/profiles")
 def profiles():
-    best_candidates = session.pop("best_candidates", None)
-   
-    if best_candidates:
-        data = best_candidates  # استخدام المرشحين الجدد
-        print('best_candidates!!!!!', data)
+    # Simply render the template, data will be loaded via API
+    return render_template("profiles.html")
 
+@app.route("/api/profiles")
+def api_profiles():
+    best_candidates = session.get("best_candidates", None)
+    
+    if best_candidates:
+        data = best_candidates
+        print('best_candidates used:', data)
     else:
         cursor = db.cursor()
-        cursor.execute("SELECT * FROM talenters") 
-        data = cursor.fetchall()  # جلب جميع الملفات في الحالة العادية
-        print('هذا الشرط تنفذ!!!!!!', data)
+        cursor.execute("SELECT * FROM talenters")
+        rows = cursor.fetchall()
+        
+        # Data will be handled by JavaScript
+        data = rows
+        print('Database query executed, rows:', len(rows))
+    
+    return jsonify(data)
 
-    return render_template("profiles.html", data=data)
-
-
+@app.route("/chat", methods=["POST"])
+def chat():
+    try:
+        user_message = request.json["message"]
+        # Call your RAG function to get response and candidates
+        response_text, best_candidates = query_rag(user_message, 0.5)
+        
+        # Fetch candidates data if IDs are returned
+        if best_candidates and len(best_candidates) > 0:
+            format_strings = ','.join(['%s'] * len(best_candidates))
+            query = f"SELECT * FROM talenters WHERE id IN ({format_strings})"
+            cursor = db.cursor()
+            cursor.execute(query, tuple(best_candidates))
+            candidates_data = cursor.fetchall()
+            # Store in session for later use
+            session["best_candidates"] = candidates_data
+        else:
+            candidates_data = []
+            session["best_candidates"] = None
+            
+        # Return both text response and candidates data
+        return jsonify({
+            "reply": response_text, 
+            "best_candidates": candidates_data
+        })
+        
+    except Exception as e:
+        print("Error in chat endpoint:", str(e))
+        return jsonify({
+            "reply": "عذراً، حدث خطأ أثناء معالجة طلبك. يرجى المحاولة مرة أخرى.",
+            "best_candidates": []
+        }), 500
 
 # Route for the development page
 @app.route("/development")
@@ -176,5 +202,78 @@ def chat_health():
         return jsonify({"reply": "عذراً، واجهنا مشكلة في الاستجابة لاستفسارك. هل يمكنك المحاولة مرة أخرى؟"})
 
 
+
+@app.route('/profile')
+def profile():
+    talent_id = request.args.get('id')
+    
+    if not talent_id:
+        return "لم يتم تحديد الموهوب", 400
+
+    cursor.execute("SELECT * FROM talenters WHERE id = %s", (talent_id,))
+    talent = cursor.fetchone()
+
+    if not talent:
+        return "الموهوب غير موجود", 404
+
+    return render_template("profile.html", talent=talent)
+
+
+@app.route("/login")
+def login():
+    return render_template("login.html")  
+
+@app.route("/register")
+def register():
+    return render_template("register.html") 
+
+@app.route('/create-profile', methods=['POST'])
+def create_profile():
+    if request.method == 'POST':
+        # الحصول على البيانات من النموذج
+        account_type = request.form['account_type']
+        name = request.form['name']
+        username = request.form['username']
+        email = request.form['email']
+        phone_number = request.form['phone_number']
+        sport_field = request.form['sport_field']
+        other_sport = request.form.get('other_sport', '')
+        position = request.form['position']
+        skills = ','.join(request.form.getlist('skills[]'))
+        height = request.form['height']
+        password = request.form['password']
+        city = request.form['city']
+
+        # بيانات الكاشف (تكون موجودة فقط عند اختيار نوع الحساب "كاشف")
+        scout_name = request.form.get('scout_name', '')
+        organization = request.form.get('organization', '')
+        experience = request.form.get('experience', '')
+        scout_skills = ','.join(request.form.getlist('scout_skills[]'))
+
+        # إذا كان نوع الحساب "موهوب"، نقوم بتخزين البيانات في جدول الموهوبين
+        if account_type == "talent":
+            sql = """
+            INSERT INTO talenters (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            values = (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city)
+            cursor.execute(sql, values)
+        
+        # إذا كان نوع الحساب "كاشف"، نقوم بتخزين البيانات في جدول الكاشفين
+        elif account_type == "scout":
+            sql = """
+            INSERT INTO scouts (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city, scout_name, organization, experience, scout_skills)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            values = (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city, scout_name, organization, experience, scout_skills)
+            cursor.execute(sql, values)
+        
+        # حفظ البيانات في قاعدة البيانات
+        db.commit()
+
+        return redirect(url_for('login'))
+
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True , port=5001)

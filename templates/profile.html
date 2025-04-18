@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="static/css/style.css">
+
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <title>الملف الشخصي - {{ talent.name }}</title>
+  
+  <style>
+    .chart-container {
+      width: 200px;
+      height: 200px;
+      position: relative;
+    }
+
+    .circular-chart {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .circle-bg,
+    .circle {
+      fill: none;
+      stroke-width: 15;
+      cx: 50%;
+      cy: 50%;
+      r: 70;
+    }
+
+    .circle-bg {
+      stroke: #eee;
+    }
+
+    .circle {
+      stroke: #00aaff;
+      stroke-linecap: round;
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      transition: stroke-dashoffset 1s ease;
+    }
+
+    .percentage-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-light mb-4">
+    <div class="container d-flex justify-content-between">
+      <!-- اللوجو إلى اليمين -->
+      <a class="nav-link" href="/login" style=" color: #ffffff;">
+        تسجيل دخول
+        <img class="rounded-circle" style="width: 25px; height: 25px; margin-right: 5px;"
+          src="https://www.gravatar.com/avatar/anything?s=200&d=mm" alt="User Icon" />
+      </a>
+
+      <!-- باقي العناصر في المنتصف -->
+      <div class="collapse navbar-collapse justify-content-center" id="mobile-nav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/contact">تواصل معنا</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/about">من نحن</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/development">التطوير</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/profiles">الموهوبون</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/posts">المنشورات</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/">الرئيسية</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- أيقونة المستخدم إلى اليسار -->
+      <div>
+
+        <a class="navbar-brand mr-auto" href="#">
+          <img src="static/css/img/logo_white2.png" alt="Logo" style="height: 40px;">
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Profile -->
+  <div class="profile">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-6">
+              <a href="/profiles" class="btn btn-light mb-3 float-left">ارجع للخلف</a>
+            </div>
+            <div class="col-6">
+
+            </div>
+          </div>
+
+          <!-- Profile Header -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-body bg-info text-white mb-3">
+                <div class="row">
+                  <div class="col-4 col-md-3 m-auto">
+                    <img class="rounded-circle" src="https://www.gravatar.com/avatar/anything?s=200&d=mm" alt="" />
+                  </div>
+                </div>
+                <div class="text-center">
+                  <h1 class="display-4 text-center">{{ talent.name }}</h1>
+                  <p class="lead text-center">{{ talent.position }}</p>
+
+
+                  <p>
+                    <a class="text-white p-2" href="#">
+                      <i class="fas fa-globe fa-2x"></i>
+                    </a>
+                    <a class="text-white p-2" href="#">
+                      <i class="fab fa-twitter fa-2x"></i>
+                    </a>
+                    <a class="text-white p-2" href="#">
+                      <i class="fab fa-facebook fa-2x"></i>
+                    </a>
+                    <a class="text-white p-2" href="#">
+                      <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                    <a class="text-white p-2" href="#">
+                      <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                  </p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile About -->
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="card card-body bg-light mb-3">
+                <h3 class="text-center text-info">معلومات التواصل</h3>
+                <p class="lead text-right">
+                  <strong>رقم الجوال:</strong> {{ talent.phone }}
+                </p>
+                <p class="lead text-right">
+                  {{ talent.email }} <strong> :البريد الالكتروني</strong> </p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card card-body bg-light mb-3">
+                <h3 class="text-center text-info">المعلومات الشخصية</h3>
+                <p class="lead text-right">
+                  <strong> العمر:</strong> {{ talent.age }}
+                </p>
+                <p class="lead text-right">
+                  <strong> الطول:</strong> {{ talent.height }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile About -->
+          <div class="card card-body bg-light mb-3">
+            <h3 class="text-center text-info">المهارات</h3>
+            <div class="d-flex flex-wrap justify-content-center align-items-center">
+              {% for skill in talent.skills.split("،") %}
+              <div class="p-3"> {{ skill }}<i class="fa fa-check"></i> </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="card card-body bg-light mb-3">
+            <h3 class="text-center text-info">تقييم الذكاء الاصطناعي</h3>
+            
+
+
+          <div class="row align-items-center">
+            <!-- الرسم الدائري على اليمين -->
+            <div class="col-md-4 text-center order-md-2">
+              <div class="chart-container mx-auto my-3" style="width: 150px; height: 150px; position: relative;">
+                <svg class="circular-chart" viewBox="0 0 200 200" style="width: 100%; height: 100%; transform: rotate(-90deg);">
+                  <circle cx="100" cy="100" r="70" stroke="#eee" stroke-width="15" fill="none" />
+                  <circle id="progress-circle" cx="100" cy="100" r="70" stroke="#17a2b8" stroke-width="15" fill="none"
+                    stroke-linecap="round"
+                    stroke-dasharray="440"
+                    stroke-dashoffset="440"
+                    style="transition: stroke-dashoffset 1s ease;" />
+                </svg>
+                <div id="percentage-text" class="font-weight-bold"
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 20px;">
+                  0%
+                </div>
+              </div>
+            </div>
+        
+            <!-- الفيديو على اليسار -->
+            <div class="col-md-8 order-md-1">
+              <div class="embed-responsive embed-responsive-16by9">
+                <video class="embed-responsive-item" controls>
+                  <source src="static/css/img/video.mp4" type="video/mp4">
+                  المتصفح لا يدعم تشغيل الفيديو.
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+          <!-- سكريبت لجعل الرسم يتفاعل مع النسبة -->
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              const percent = parseFloat("{{ talent.ai_rating }}") || 0;
+              const circle = document.getElementById('progress-circle');
+              const percentageText = document.getElementById('percentage-text');
+          
+              const radius = 70;
+              const circumference = 2 * Math.PI * radius;
+              const offset = circumference - (percent / 100) * circumference;
+          
+              circle.style.strokeDashoffset = offset;
+              percentageText.textContent = percent + '%';
+            });
+          </script>
+          
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-5 p-4 text-center" style=" color: #ddd;">
+    &copy; 2025 AI منصة موهبة
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

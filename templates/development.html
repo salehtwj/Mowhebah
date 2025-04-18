@@ -33,46 +33,48 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-sm navbar-light mb-4">
     <div class="container d-flex justify-content-between">
-        <!-- اللوجو إلى اليمين -->
-        <a class="nav-link" href="#" style=" color: #ffffff;">
-            تسجيل خروج
-            <img class="rounded-circle" style="width: 25px; height: 25px; margin-right: 5px;"
-                src="https://www.gravatar.com/avatar/anything?s=200&d=mm" 
-                alt="User Icon" />
+      <!-- اللوجو إلى اليمين -->
+      <a class="nav-link" href="/login" style=" color: #ffffff;">
+        تسجيل دخول
+        <img class="rounded-circle" style="width: 25px; height: 25px; margin-right: 5px;"
+          src="https://www.gravatar.com/avatar/anything?s=200&d=mm" alt="User Icon" />
+      </a>
+
+      <!-- باقي العناصر في المنتصف -->
+      <div class="collapse navbar-collapse justify-content-center" id="mobile-nav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/">الرئيسية</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/posts">المنشورات</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/profiles">الموهوبون</a>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/development">التطوير</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/about">من نحن</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style=" color: #ffffff;" href="/contact">تواصل معنا</a>
+          </li>
+
+
+        </ul>
+      </div>
+
+      <!-- أيقونة المستخدم إلى اليسار -->
+      <div>
+
+        <a class="navbar-brand mr-auto" href="#">
+          <img src="static/css/img/logo_white2.png" alt="Logo" style="height: 40px;">
         </a>
-
-        <!-- باقي العناصر في المنتصف -->
-        <div class="collapse navbar-collapse justify-content-center" id="mobile-nav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" style="color: #ffffff;" href="/contact">تواصل معنا</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: #ffffff;" href="/about">من نحن</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: #ffffff;" href="/development">التطوير</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: #ffffff;" href="/profiles">الموهوبون</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: #ffffff;" href="/posts">المنشورات</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="color: #ffffff;" href="/">الرئيسية</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- أيقونة المستخدم إلى اليسار -->
-        <div>
-            <a class="navbar-brand mr-auto" href="#">
-                <img src="static/css/img/logo_white2.png" alt="Logo" style="height: 40px;">
-            </a>
-        </div>
+      </div>
     </div>
-</nav>
+  </nav>
 
   <!-- Development Content -->
   <div class="container">
@@ -87,7 +89,7 @@
             <div class="col-md-6">
               <div class="development-card">
                 <h3 class="text-center">تطوير المسار المهني</h3>
-                <p style="font-size: 14px;">نقدم لك استشارات وتوجيهات لتطوير مسارك المهني وتحسين مهاراتك في مجال عملك.</p>
+                <h5 class="text-center">نقدم لك استشارات وتوجيهات لتطوير مسارك الرياضي.</h5>
                 <div class="text-center">
                   <button class="btn btn-primary" id="open-career-chat">التحدث مع مساعد التطوير المهني</button>
                 </div>
@@ -96,7 +98,7 @@
             <div class="col-md-6">
               <div class="development-card">
                 <h3 class="text-center">الصحة المهنية</h3>
-                <p style="font-size: 14px;">نهتم بصحتك النفسية والجسدية في بيئة العمل وتحقيق التوازن بين العمل والحياة.</p>
+                <h5 class="text-center">>نهتم بصحتك النفسية والجسدية في بيئة العمل وتحقيق التوازن بين العمل والحياة.<h5>
                 <div class="text-center">
                   <button class="btn btn-success" id="open-health-chat">التحدث مع مساعد الصحة المهنية</button>
                 </div>
@@ -110,8 +112,8 @@
               <div class="row mt-3">
                 <div class="col-md-4">
                   <div class="development-card">
-                    <h4>دورات تدريبية</h4>
-                    <p style="font-size: 14px;">استكشف مجموعة متنوعة من الدورات التدريبية المصممة لتعزيز مهاراتك المهنية.</p>
+                    <h4 class="text-center">دورات تدريبية</h4>
+                    <h6 class="text-center">استكشف مجموعة متنوعة من الدورات التدريبية المصممة لتعزيز مهاراتك المهنية.<h5>
                     <div class="text-center">
                       <a href="#" class="btn btn-info btn-sm">استعراض الدورات</a>
                     </div>
@@ -119,8 +121,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="development-card">
-                    <h4>برامج التوجيه</h4>
-                    <p style="font-size: 14px;">انضم إلى برامج التوجيه للتعلم من خبراء في مجالك وتطوير مهاراتك بشكل أسرع.</p>
+                    <h4 class="text-center">برامج التوجيه</h4>
+                    <h6 class="text-center">انضم إلى برامج التوجيه للتعلم من خبراء في مجالك وتطوير مهاراتك بشكل أسرع.<h5>
                     <div class="text-center">
                       <a href="#" class="btn btn-info btn-sm">اكتشف المزيد</a>
                     </div>
@@ -128,8 +130,8 @@
                 </div>
                 <div class="col-md-4">
                   <div class="development-card">
-                    <h4>مقالات وموارد</h4>
-                    <p style="font-size: 14px;">اطلع على أحدث المقالات والموارد في مجال التطوير المهني والصحة المهنية.</p>
+                    <h4 class="text-center">مقالات وموارد</h4>
+                    <h6 class="text-center">اطلع على أحدث المقالات والموارد في مجال التطوير المهني والصحة المهنية.<h5>
                     <div class="text-center">
                       <a href="#" class="btn btn-info btn-sm">قراءة المزيد</a>
                     </div>

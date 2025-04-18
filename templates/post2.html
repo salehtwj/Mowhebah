@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>المنشورات</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
     body {
@@ -41,84 +42,111 @@
       background-color: #ffffff;
     }
 
-  #post-container .card {
-  background: rgba(255, 255, 255, 0.1); /* خلفية شفافة */
-  border: 2px solid white; /* إطار أبيض */
-  color: white; /* لون النص أبيض */
-  padding: 15px;
-  border-radius: 10px; /* زوايا ناعمة */
-  backdrop-filter: blur(5px); /* تأثير ضبابي */
-}
+    #post-container .card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
 
-#post-container .card p {
-  color: white; /* تأكد أن النص الأبيض ينطبق على الفقرات */
-}
-
+    #post-container .card p {
+      color: white;
+    }
+    
+    .challenge-post {
+      border-color: rgb(137, 0, 206) !important;
+      border-width: 3px !important;
+    }
+    
+    .badge-warning {
+      color: white !important;
+    }
+    
+    .challenge-response-item {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border-color: white !important;
+    }
+    
+    .response-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .response-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Additional styles for the popup */
+    .modal-content {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+    }
+    
+    .modal-header, .modal-footer {
+      border-color: rgba(137, 0, 206, 0.2);
+    }
+    
+    .modal-title {
+      color: rgb(137, 0, 206);
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar navbar-expand-sm navbar-light mb-4">
     <div class="container d-flex justify-content-between">
-        <!-- اللوجو إلى اليمين -->
-        <a class="nav-link" href="#" style=" color: #ffffff;">
+        <a class="nav-link" href="#" style="color: #ffffff;">
             تسجيل خروج
             <img class="rounded-circle" style="width: 25px; height: 25px; margin-right: 5px;"
                 src="https://www.gravatar.com/avatar/anything?s=200&d=mm" 
                 alt="User Icon" />
         </a>
 
-        <!-- باقي العناصر في المنتصف -->
         <div class="collapse navbar-collapse justify-content-center" id="mobile-nav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" style=" color: #ffffff;" href="/contact">تواصل معنا</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style=" color: #ffffff;" href="/about">من نحن</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style=" color: #ffffff;" href="/profiles">الموهوبون</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style=" color: #ffffff;" href="/posts">المنشورات</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style=" color: #ffffff;" href="/">الرئيسية</a>
-                </li>
-            </ul>
-        </div>
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" style="color: #ffffff;" href="/contact">تواصل معنا</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" style="color: #ffffff;" href="/about">من نحن</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" style="color: #ffffff;" href="/development">التطوير</a>
+            </li>
+              <li class="nav-item">
+                  <a class="nav-link" style="color: #ffffff;" href="/profiles">الموهوبون</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" style="color: #ffffff;" href="/posts">المنشورات</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" style="color: #ffffff;" href="#">الرئيسية</a>
+              </li>
+          </ul>
+      </div>
 
-        <!-- أيقونة المستخدم إلى اليسار -->
         <div>
-            
             <a class="navbar-brand mr-auto" href="#">
                 <img src="static/css/img/logo_white2.png" alt="Logo" style="height: 40px;">
             </a>
         </div>
     </div>
-</nav>
+  </nav>
 
-  
-
-  <!-- Main Container -->
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <!-- Posts Container -->
         <div id="post-container">
-          <!-- المنشورات ستتم إضافتها هنا ديناميكيًا -->
         </div>
       </div>
     </div>
   </div>
 
-  <!-- زر إضافة منشور -->
   <button class="post-button" data-toggle="modal" data-target="#postModal">+</button>
 
-  <!-- Modal لإنشاء منشور -->
   <div class="modal fade" id="postModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -129,101 +157,32 @@
         <div class="modal-body">
           <form id="post-form">
             <div class="form-group">
+              <label for="post-type">نوع المنشور:</label>
+              <select id="post-type" class="form-control">
+                <option value="regular">منشور عادي</option>
+                <option value="challenge">تحدي</option>
+              </select>
+            </div>
+            <div class="form-group">
               <textarea id="post-text" class="form-control" placeholder="اكتب شيئًا..."></textarea>
             </div>
             <div class="form-group">
               <input type="file" id="post-file" class="form-control-file" accept="image/*, video/*">
             </div>
-      <button type="submit" class="btn btn-info" style="background-color: rgb(137, 0, 206); color: rgb(255, 255, 255);">نشر</button>
+            <button type="submit" class="btn btn-info" style="background-color: rgb(137, 0, 206); color: rgb(255, 255, 255);">نشر</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="mt-5 p-4 text-center" style=" color: #ddd;">
+  <footer class="mt-5 p-4 text-center" style="color: #ddd;">
     &copy; 2025 AI منصة موهبة
   </footer>
-
-  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-  <script>
-    $(document).ready(function () {
-        const postContainer = $("#post-container");
-        const postForm = $("#post-form");
-        const postText = $("#post-text");
-        const postFile = $("#post-file");
-
-        // بيانات المنشورات الافتراضية
-        const fakePosts = [
-            { name: "أحمد خالد", text: "هذا أول منشور في المنصة! 🎉", image: "https://source.unsplash.com/600x400/?nature", time: "2025-03-15 10:30" },
-            { name: "محمد سلطان" , text: "عمل رائع قمت به اليوم! 💪", image: "https://source.unsplash.com/600x400/?technology", time: "2025-03-15 12:15" },
-            { name: "فاطمة صالح", text: "أفضل كتاب قرأته هذا الشهر 📖", image: "", time: "2025-03-14 08:45" },
-            { name: "سارة محمد", text: "رحلتي إلى الجبال كانت مذهلة! 🏔️", image: "https://source.unsplash.com/600x400/?mountain", time: "2025-03-14 11:20" },
-            { name: "خالد تركي", text: "تعلمت تقنية جديدة في البرمجة 🚀", video: "https://www.w3schools.com/html/mov_bbb.mp4", time: "2025-03-13 09:10" }
-        ];
-
-        // إضافة المنشورات الافتراضية عند تحميل الصفحة
-        fakePosts.forEach(post => {
-            addPost(post.text, post.image || post.video, post.name, post.time);
-        });
-
-
-        // أسماء عشوائية للمستخدمين
-        const fakeUsers = ["أحمد خالد", "محمد سلطان", "فاطمة صالح", "سارة محمد"];
-
-        postForm.submit(function (e) {
-            e.preventDefault();
-
-            const text = postText.val().trim();
-            const file = postFile.prop("files")[0];
-
-            if (!text && !file) {
-                alert("يرجى إدخال نص أو رفع ملف!");
-                return;
-            }
-
-            let mediaSrc = "";
-            if (file) {
-                mediaSrc = URL.createObjectURL(file);
-            }
-
-            const now = new Date();
-            const time = now.toLocaleString("en-SA", { hour12: false });
-
-            const randomUser = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
-            addPost(text, mediaSrc, randomUser, time);
-
-            $("#postModal").modal("hide");
-            postText.val("");
-            postFile.val("");
-        });
-
-        function addPost(text, media, username, time) {
-            const post = $(`
-                <div class="card card-body mb-3">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img class="rounded-circle d-none d-md-block" src="https://www.gravatar.com/avatar/anything?s=200&d=mm" alt=""/>
-                            <p class="text-center">${username}</p>
-                            <p class="text-muted text-center" style="font-size: 12px;">${time}</p>
-                        </div>
-                        <div class="col-md-10">
-                            <p class="lead">${text}</p>
-                            ${media ? (media.endsWith(".mp4") ? `<video controls src="${media}" class="w-100 mt-2"></video>` : `<img src="${media}" class="w-100 mt-2" />`) : ""}
-                        </div>
-                    </div>
-                </div>
-            `);
-
-            postContainer.prepend(post);
-        }
-    });
-
-  </script>
+  <script src="static/js/post_script.js"></script>
 
 </body>
 </html>

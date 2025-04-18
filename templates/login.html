@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <title>تسجيل دخول</title>
+
+  <style>
+    body {
+        background: url('static/css/img/bg2.jpg') no-repeat center center fixed;
+        background-size: cover;
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .card {
+  background: rgba(255, 255, 255, 0.1); /* خلفية شفافة */
+  border: 2px solid white; /* إطار أبيض */
+  color: white; /* لون النص أبيض */
+  padding: 15px;
+  border-radius: 10px; /* زوايا ناعمة */
+  backdrop-filter: blur(5px); /* تأثير ضبابي */
+  position: relative;
+  display: block;
+  padding: .4em 3em .4em 2em;
+  margin: .7em 0;
+  text-decoration: none;
+  border-radius: .3em;
+  transition: .3s ease-out;
+  text-align: right;
+}
+
+footer {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%); /* محاذاة الـ footer في المنتصف */
+  width: 500px; /* عرض محدد */
+  height: 80px; /* ارتفاع محدد */
+  color: #ddd;
+  text-align: center;
+  line-height: 60px; /* محاذاة النص عموديًا داخل الـ footer */
+  padding: 0; /* إزالة الحشو ليتناسب مع الحجم المحدد */
+}
+    </style>
+
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-light mb-4">
+    <div class="container d-flex justify-content-between">
+        <!-- اللوجو إلى اليمين -->
+        <a class="nav-link" href="#" style=" color: #ffffff;">
+            تسجيل دخول
+            <img class="rounded-circle" style="width: 25px; height: 25px; margin-right: 5px;"
+                src="https://www.gravatar.com/avatar/anything?s=200&d=mm" 
+                alt="User Icon" />
+        </a>
+
+        <!-- باقي العناصر في المنتصف -->
+        <div class="collapse navbar-collapse justify-content-center" id="mobile-nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/contact">تواصل معنا</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/about">من نحن</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style=" color: #ffffff;" href="/development">التطوير</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/profiles">الموهوبون</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/posts">المنشورات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style=" color: #ffffff;" href="/">الرئيسية</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- أيقونة المستخدم إلى اليسار -->
+        <div>
+            
+            <a class="navbar-brand mr-auto" href="#">
+                <img src="static/css/img/logo_white2.png" alt="Logo" style="height: 40px;">
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+  <!-- Login -->
+  <div class="login">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 m-auto text-light">
+          <h1 class="display-4 text-center">تسجيل دخول</h1><br><br>
+        <!-- <p class="lead text-center">Sign in to your account</p> --> 
+
+          <form action="dashboard.html">
+            <div class="form-group" style="text-align: right;">
+              <label for="email">البريد الالكتروني او اسم المستخدم</label>
+              <input type="email" class="form-control card" name="email" />
+            </div>
+            <div class="form-group" style="text-align: right;">
+              <label for="password">كلمة المرور</label>
+              <input type="password" class="form-control card" name="password" />
+            </div>
+            <div class="form-group" style="text-align: right;">
+              <a  href="#" style=" color: #ffffff85;" > هل نسيت كلمة المرور؟</a>
+            </div>
+            <input type="submit" class="btn btn-info btn-block mt-4" value="دخول" style="background-color:#0dcaf087; color: rgb(255, 255, 255);" />
+
+            <div class="form-group">
+              <br><br>
+              <p class="lead text-center"> ليس لديك حساب؟ <a  href="\register" style="color:#0dcaf0;">سجل الان </a> </p> 
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-5 p-4 text-center" style=" color: #ddd;">
+    &copy; 2025 AI منصة موهبة
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
