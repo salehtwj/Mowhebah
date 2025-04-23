@@ -32,7 +32,7 @@ class ChatUtils:
             
         chat_completion = client.chat.completions.create(
             messages=[{"role": "user", "content": content_prompt}],
-            model="qwen-2.5-coder-32b",
+            model="allam-2-7b",
         )
         return chat_completion.choices[0].message.content
 
@@ -50,7 +50,7 @@ class ChatUtils:
         
         chat_completion = client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
-            model="qwen-2.5-coder-32b",
+            model="allam-2-7b",
         )
         return chat_completion.choices[0].message.content.strip()
 
@@ -88,39 +88,81 @@ class ChatUtils:
     @staticmethod
     def contextualize_information(info, user_input, context="career"):
         """
-        Third agent: Contextualizes the retrieved information for the user
+        Third agent: Contextualizes the retrieved information to support talent development
+        in sports and e-sports or provide health-related guidance.
         """
         context_prompt = ""
+        
         if context == "career":
             context_prompt = (
-                f"You are a career development specialist helping a user who asked: "
-                f'"{user_input}"\n\n'
+                f"You are an expert in talent development for sports and e-sports. "
+                f"You are helping a user who asked:\n\"{user_input}\"\n\n"
                 f"You searched online and found this content:\n{info}\n\n"
-                f"Now extract useful, clear, data-driven insights. Don't just summarize. "
-                f"Give a helpful response (under 150 words) that is:\n"
-                f"- Professional and encouraging\n"
-                f"- Actionable with specific steps\n"
-                f"- Knowledgeable but accessible\n"
-                f"Write in Arabic as the user speaks Arabic."
+                f"Now extract useful, clear, and data-driven insights from the content. "
+                f"Do not summarize. Instead, provide a helpful response (under 50 words) that is:\n"
+                f"- Focused on improving performance or developing skills in sports or e-sports\n"
+                f"- Motivational and goal-oriented\n"
+                f"- Actionable, with specific steps or strategies\n"
+                f"- Easy to understand, even for beginners"
+                f"-Write in Arabic as the user speaks Arabic."
             )
+
         else:  # health context
             context_prompt = (
-                f"You are an occupational health specialist helping a user who asked: "
-                f'"{user_input}"\n\n'
+                f"You are a health and wellness advisor supporting athletes and e-sports players. "
+                f"You are helping a user who asked:\n\"{user_input}\"\n\n"
                 f"You searched online and found this content:\n{info}\n\n"
-                f"Now extract useful, clear, health-focused insights. Don't just summarize. "
-                f"Give a supportive response (under 150 words) that is:\n"
-                f"- Caring and empathetic\n"
-                f"- Provides practical health advice\n"
-                f"- Science-based but accessible\n"
-                f"Write in Arabic as the user speaks Arabic."
+                f"Now extract practical, science-based health advice. Do not summarize. "
+                f"Provide a helpful response (under 50 words) that is:\n"
+                f"- Supportive and empathetic\n"
+                f"- Focused on physical or mental well-being in the context of sports/e-sports\n"
+                f"- Offers actionable tips or routines (e.g., sleep, recovery, nutrition, stress)\n"
+                f"- Clear and accessible to all levels of users"
+                f"-Write in Arabic as the user speaks Arabic."
             )
-            
+
         chat_completion = client.chat.completions.create(
             messages=[{"role": "user", "content": context_prompt}],
-            model="qwen-2.5-coder-32b",
+            model="allam-2-7b",
         )
         return chat_completion.choices[0].message.content.strip()
+
+    # def contextualize_information(info, user_input, context="career"):
+    #     """
+    #     Third agent: Contextualizes the retrieved information for the user
+    #     """
+    #     context_prompt = ""
+    #     if context == "career":
+    #         context_prompt = (
+    #             f"You are a career development specialist helping a user who asked: "
+    #             f'"{user_input}"\n\n'
+    #             f"You searched online and found this content:\n{info}\n\n"
+    #             f"Now extract useful, clear, data-driven insights. Don't just summarize. "
+    #             f"Give a helpful response (under 150 words) that is:\n"
+    #             f"- Professional and encouraging\n"
+    #             f"- Actionable with specific steps\n"
+    #             f"- Knowledgeable but accessible\n"
+    #             f"Write in Arabic as the user speaks Arabic."
+    #             f""
+    #         )
+    #     else:  # health context
+    #         context_prompt = (
+    #             f"You are an occupational health specialist helping a user who asked: "
+    #             f'"{user_input}"\n\n'
+    #             f"You searched online and found this content:\n{info}\n\n"
+    #             f"Now extract useful, clear, health-focused insights. Don't just summarize. "
+    #             f"Give a supportive response (under 150 words) that is:\n"
+    #             f"- Caring and empathetic\n"
+    #             f"- Provides practical health advice\n"
+    #             f"- Science-based but accessible\n"
+    #             f"Write in Arabic as the user speaks Arabic."
+    #         )
+            
+    #     chat_completion = client.chat.completions.create(
+    #         messages=[{"role": "user", "content": context_prompt}],
+    #         model="allam-2-7b",
+    #     )
+    #     return chat_completion.choices[0].message.content.strip()
 
     @staticmethod
     def process_chat(user_input, context="career"):

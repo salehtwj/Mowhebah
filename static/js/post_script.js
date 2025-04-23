@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             </button>
                         </div>
                         <div class="modal-body text-center" style="padding: 20px;">
-                            <div class="chart-container my-3" style="position: relative; height:220px; width:100%">
+                            <div class="chart-container my-3" style="position: relative; height:220px; width:100%; top: -100px">
                                 <canvas id="analysisChart"></canvas>
                             </div>
                             <div class="result-value text-center my-2" style="font-size: 24px; font-weight: bold;">
