@@ -57,55 +57,47 @@ def login():
 def register():
     return render_template("register.html") 
 
-@app.route('/create-profile', methods=['POST'])
+@app.route('/create_profile', methods=['POST'])
 def create_profile():
     if request.method == 'POST':
-        # الحصول على البيانات من النموذج
         account_type = request.form['account_type']
         name = request.form['name']
         username = request.form['username']
         email = request.form['email']
         phone_number = request.form['phone_number']
         sport_field = request.form['sport_field']
-        other_sport = request.form.get('other_sport', '')
         position = request.form['position']
-        skills = ','.join(request.form.getlist('skills[]'))
-        height = request.form['height']
         password = request.form['password']
-        city = request.form['city']
 
-        # بيانات الكاشف (تكون موجودة فقط عند اختيار نوع الحساب "كاشف")
-        scout_name = request.form.get('scout_name', '')
-        organization = request.form.get('organization', '')
-        experience = request.form.get('experience', '')
-        scout_skills = ','.join(request.form.getlist('scout_skills[]'))
-
-        # إذا كان نوع الحساب "موهوب"، نقوم بتخزين البيانات في جدول الموهوبين
         if account_type == "talent":
-            sql = """
-            INSERT INTO talenters (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            values = (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city)
-            cursor.execute(sql, values)
-        
-        # إذا كان نوع الحساب "كاشف"، نقوم بتخزين البيانات في جدول الكاشفين
-        elif account_type == "scout":
-            sql = """
-            INSERT INTO scouts (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city, scout_name, organization, experience, scout_skills)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            values = (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city, scout_name, organization, experience, scout_skills)
-            cursor.execute(sql, values)
-        
-        # حفظ البيانات في قاعدة البيانات
-        db.commit()
+            age = request.form['age']
+            height = request.form['height']
+            skills = ','.join(request.form.getlist('skills[]'))
+            ai_rating = 89.00
 
+            sql = """
+                INSERT INTO talenters (name, username, age, sport_field, position, skills, ai_rating, height, password, phone_number, email)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            values = (name, username, age, sport_field, position, skills, ai_rating, height, password, phone_number, email)
+            cursor.execute(sql, values)
+
+        elif account_type == "scout":
+            organization = request.form['organization']
+            experience = request.form['experience']
+            city = request.form['city']
+
+            sql = """
+                INSERT INTO scouts (name, username, email, phone_number, sport_field, position, password, city, organization, experience)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            values = (name, username, email, phone_number, sport_field, position, password, city, organization, experience)
+            cursor.execute(sql, values)
+
+        db.commit()
         return redirect(url_for('login'))
 
 
-
-# اخر تحديث وصلت له
 @app.route("/chat", methods=["POST"])
 def chat():
     user_message = request.json["message"]
@@ -127,7 +119,6 @@ def chat():
     session["best_candidates"] = candidates_data  
 
     return jsonify({"reply": response_text, "best_candidates": candidates_data})  # إرسال البيانات إلى الـ Front-End
-
 
 
 @app.route("/profiles")

@@ -43,18 +43,23 @@
       text-align: right;
     }
 
-    footer {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%); /* محاذاة الـ footer في المنتصف */
-  width: 500px; /* عرض محدد */
-  height: 80px; /* ارتفاع محدد */
-  color: #ddd;
-  text-align: center;
-  line-height: 60px; /* محاذاة النص عموديًا داخل الـ footer */
-  padding: 0; /* إزالة الحشو ليتناسب مع الحجم المحدد */
-}
+    .footer {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      /* محاذاة الـ footer في المنتصف */
+      width: 500px;
+      /* عرض محدد */
+      height: 80px;
+      /* ارتفاع محدد */
+      color: #ddd;
+      text-align: center;
+      line-height: 60px;
+      /* محاذاة النص عموديًا داخل الـ footer */
+      padding: 0;
+      /* إزالة الحشو ليتناسب مع الحجم المحدد */
+    }
   </style>
 
 </head>
@@ -111,11 +116,10 @@
       <div class="row">
         <div class="col-md-8 m-auto text-light">
           <h1 class="display-4 text-center">إنشاء حساب</h1><br>
-
-      <!--    <form action="create-profile.html">
-
+          <form action="/create_profile" method="POST">
+            <!-- نوع الحساب -->
             <div class="form-group" dir="rtl">
-              <label class="float-right d-block mb-2">نوع الحساب</label><br>
+              <label class="d-block mb-2 text-right">نوع الحساب</label>
               <div class="form-check form-check-inline float-right ml-3">
                 <input class="form-check-input" type="radio" name="account_type" id="account_talent" value="talent">
                 <label class="form-check-label" for="account_talent">موهوب</label>
@@ -124,288 +128,202 @@
                 <input class="form-check-input" type="radio" name="account_type" id="account_scout" value="scout">
                 <label class="form-check-label" for="account_scout">كاشف</label>
               </div>
-            </div><br>                      
+            </div><br><br>
 
-            <div class="form-group" style="text-align: right;">
-              <label for="name">الاسم</label>
-              <input type="text" class="form-control card" name="name" required />
-            </div>
-
-            <div class="form-group" style="text-align: right;">
-              <label for="username">اسم المستخدم</label>
-              <input type="text" class="form-control card" name="username" required />
-            </div>
-
-            <div class="form-group" style="text-align: right;">
-              <label for="email">البريد الالكتروني</label>
-              <input type="email" class="form-control card" name="email" />
-            </div>
-
-            <div class="form-group" style="text-align: right;">
-              <label for="phone_number">رقم الجوال</label>
-              <input type="text" class="form-control card" name="phone_number" required />
-            </div>
-
-            <div class="form-group" style="text-align: right;">
-            <label for="sport_field">المجال الرياضي</label>
-            <select id="sport_field" name="sport_field" class="form-control card text-right" dir="rtl" required>
-              <option value="" disabled selected>اختر المجال الرياضي</option>
-              <option value="كرة القدم">كرة القدم</option>
-              <option value="كرة السلة">كرة السلة</option>
-              <option value="السباحة">السباحة</option>
-              <option value="الكرة الطائرة">الكرة الطائرة</option>
-              <option value="التنس">التنس</option>
-              <option value="ألعاب القوى">ألعاب القوى</option>
-              <option value="الفنون القتالية">الفنون القتالية</option>
-              <option value="رفع الأثقال">رفع الأثقال</option>
-              <option value="الجمباز">الجمباز</option>
-              <option value="ركوب الدراجات">ركوب الدراجات</option>
-              <option value="الرياضات الإلكترونية">الرياضات الإلكترونية</option>
-            </select></div>
-
-            <div class="form-group"  style="text-align: right;">
-              <label for="other_sport">في حال اختيار اخرى، يرجى تحديد المجال الرياضي</label>
-              <input type="text" name="other_sport" class="form-control card">
-            </div>
-
-            <div class="form-group" style="text-align: right;">
-              <label for="position">التخصص الرياضي</label>
-              <input type="text" class="form-control card" name="position" required />
-            </div>
-
-            <div class="form-group">
-              <label class="float-right">المهارات</label>
-              <div id="skills-container">
-                <input type="text" name="skills[]" class="form-control mb-2 text-right card">
+            <!-- بيانات الموهوب -->
+            <div id="talent-fields" class="form-section">
+              <div class="form-group text-right">
+                <label for="name">الاسم</label>
+                <input type="text" class="form-control card" name="name" required />
               </div>
-              <button type="button" id="add-skill" class="btn btn-secondary btn-sm">إضافة مهارة أخرى</button>
-            </div>            
 
-            <div class="form-group" style="text-align: right;">
-              <label for="height">الطول</label>
-              <input type="text" class="form-control card" name="height" required />
-            </div>
-
-            <div class="form-group" style="text-align: right;">
-              <label for="password">كلمة المرور</label>
-              <input type="password" class="form-control card" name="password" />
-            </div>
-
-            <div class="form-group" style="text-align: right;">
-              <label for="password">إعادة كلمة المرور</label>
-              <input type="password" class="form-control card" name="password2" />
-            </div>
-
-            <input type="submit" class="btn btn-info btn-block mt-4" value="تسجيل"
-      style="background-color:#0dcaf087; color: rgb(255, 255, 255);" />
-          </form> -->
-
-
-          <form action="/create-profile" method="POST">
-    <!-- نوع الحساب -->
-    <div class="form-group" dir="rtl">
-      <label class="d-block mb-2 text-right">نوع الحساب</label>
-      <div class="form-check form-check-inline float-right ml-3">
-        <input class="form-check-input" type="radio" name="account_type" id="account_talent" value="talent">
-        <label class="form-check-label" for="account_talent">موهوب</label>
-      </div>
-      <div class="form-check form-check-inline float-right">
-        <input class="form-check-input" type="radio" name="account_type" id="account_scout" value="scout">
-        <label class="form-check-label" for="account_scout">كاشف</label>
-      </div>
-    </div><br><br>
-      
-          <!-- بيانات الموهوب -->
-          <div id="talent-fields" class="form-section">
-            <div class="form-group text-right">
-              <label for="name">الاسم</label>
-              <input type="text" class="form-control card" name="name" required />
-            </div>
-      
-            <div class="form-group text-right">
-              <label for="username">اسم المستخدم</label>
-              <input type="text" class="form-control card" name="username" required />
-            </div>
-      
-            <div class="form-group text-right">
-              <label for="email">البريد الالكتروني</label>
-              <input type="email" class="form-control card" name="email" />
-            </div>
-      
-            <div class="form-group text-right">
-              <label for="phone_number">رقم الجوال</label>
-              <input type="text" class="form-control card" name="phone_number" required />
-            </div>
-      
-            <div class="form-group" style="text-align: right;">
-              <label for="sport_field">المجال الرياضي</label>
-              <select id="sport_field" name="sport_field" class="form-control card text-right" dir="rtl" required>
-                <option value="" disabled selected>اختر المجال الرياضي</option>
-                <option value="كرة القدم">كرة القدم</option>
-                <option value="كرة السلة">كرة السلة</option>
-                <option value="السباحة">السباحة</option>
-                <option value="الكرة الطائرة">الكرة الطائرة</option>
-                <option value="التنس">التنس</option>
-                <option value="ألعاب القوى">ألعاب القوى</option>
-                <option value="الفنون القتالية">الفنون القتالية</option>
-                <option value="رفع الأثقال">رفع الأثقال</option>
-                <option value="الجمباز">الجمباز</option>
-                <option value="ركوب الدراجات">ركوب الدراجات</option>
-                <option value="الرياضات الإلكترونية">الرياضات الإلكترونية</option>
-              </select>
-            </div>
-      
-            <div class="form-group"  style="text-align: right;">
-              <label for="other_sport">في حال اختيار اخرى، يرجى تحديد المجال الرياضي</label>
-              <input type="text" name="other_sport" class="form-control card" id="other_sport" style="display: none;">
-            </div>
-      
-            <div class="form-group text-right">
-              <label for="position">التخصص الرياضي</label>
-              <input type="text" class="form-control card" name="position" required />
-            </div>
-      
-            <div class="form-group">
-              <label class="float-right">المهارات</label>
-              <div id="skills-container">
-                <input type="text" name="skills[]" class="form-control mb-2 text-right card">
+              <div class="form-group text-right">
+                <label for="username">اسم المستخدم</label>
+                <input type="text" class="form-control card" name="username" required />
               </div>
-              <button type="button" id="add-skill" class="btn btn-secondary btn-sm">إضافة مهارة أخرى</button>
-            </div>
-      
-            <div class="form-group" style="text-align: right;">
-              <label for="height">الطول</label>
-              <input type="text" class="form-control card" name="height" required />
-            </div>
-      
-            <div class="form-group" style="text-align: right;">
-              <label for="password">كلمة المرور</label>
-              <input type="password" class="form-control card" name="password" />
-            </div>
-      
-            <div class="form-group" style="text-align: right;">
-              <label for="password">إعادة كلمة المرور</label>
-              <input type="password" class="form-control card" name="password2" />
-            </div>
-          </div>
-      
-          <!-- بيانات الكاشف -->
-          <div id="scout-fields" class="form-section">
-            <div class="form-group text-right">
-              <label for="scout_name">الاسم </label>
-              <input type="text" class="form-control card" name="scout_name" required />
-            </div>
-      
-            <div class="form-group text-right">
-              <label for="username">اسم المستخدم</label>
-              <input type="text" class="form-control card" name="username" required />
-            </div>
-      
-            <div class="form-group text-right">
-              <label for="email">البريد الالكتروني</label>
-              <input type="email" class="form-control card" name="email" />
-            </div>
-      
-            <div class="form-group text-right">
-              <label for="phone_number">رقم الجوال</label>
-              <input type="text" class="form-control card" name="phone_number" required />
-            </div>
-      
-            <div class="form-group" style="text-align: right;">
-              <label for="sport_field">المجال الرياضي</label>
-              <select id="sport_field" name="sport_field" class="form-control card text-right" dir="rtl" required>
-                <option value="" disabled selected>اختر المجال الرياضي</option>
-                <option value="كرة القدم">كرة القدم</option>
-                <option value="كرة السلة">كرة السلة</option>
-                <option value="السباحة">السباحة</option>
-                <option value="الكرة الطائرة">الكرة الطائرة</option>
-                <option value="التنس">التنس</option>
-                <option value="ألعاب القوى">ألعاب القوى</option>
-                <option value="الفنون القتالية">الفنون القتالية</option>
-                <option value="رفع الأثقال">رفع الأثقال</option>
-                <option value="الجمباز">الجمباز</option>
-                <option value="ركوب الدراجات">ركوب الدراجات</option>
-                <option value="الرياضات الإلكترونية">الرياضات الإلكترونية</option>
-              </select>
-            </div>
-      
-            <div class="form-group"  style="text-align: right;">
-              <label for="other_sport">في حال اختيار اخرى، يرجى تحديد المجال الرياضي</label>
-              <input type="text" name="other_sport" class="form-control card" style="display: none;">
-            </div>
 
-            <div class="form-group text-right">
-              <label for="organization">الجهة</label>
-              <input type="text" class="form-control card" name="organization" required />
-            </div>
-
-            <div class="form-group" style="text-align: right;">
-              <label for="position">التخصص أو الدور الوظيفي</label>
-              <input type="text" class="form-control card" name="position" required />
-            </div>
-          
-            <div class="form-group" style="text-align: right;">
-              <label for="experience">عدد سنوات الخبرة</label>
-              <input type="number" class="form-control card" name="experience" required />
-            </div>
-          
-            <div class="form-group">
-              <label class="float-right">المهارات</label>
-              <div id="skills-container">
-                <input type="text" name="skills[]" class="form-control mb-2 text-right card">
+              <div class="form-group text-right">
+                <label for="email">البريد الالكتروني</label>
+                <input type="email" class="form-control card" name="email" />
               </div>
-              <button type="button" id="add-skill" class="btn btn-secondary btn-sm">إضافة مهارة أخرى</button>
-            </div>
-          
-            <!-- قائمة المدن السعودية -->
-            <div class="form-group" style="text-align: right;">
-              <label for="city">المدينة</label>
-              <select id="city" name="city" class="form-control card text-right" dir="rtl" required>
-                <option value="" disabled selected>اختر المدينة</option>
-                <option value="الرياض">الرياض</option>
-                <option value="جدة">جدة</option>
-                <option value="مكة">مكة</option>
-                <option value="الدمام">الدمام</option>
-                <option value="الخبر">الخبر</option>
-                <option value="المدينة المنورة">المدينة المنورة</option>
-                <option value="الطائف">الطائف</option>
-                <option value="ابها">أبها</option>
-                <option value="القصيم">القصيم</option>
-                <option value="تبوك">تبوك</option>
-                <option value="حائل">حائل</option>
-                <option value="المنطقة الشرقية">المنطقة الشرقية</option>
-              </select>
+
+              <div class="form-group text-right">
+                <label for="phone_number">رقم الجوال</label>
+                <input type="text" class="form-control card" name="phone_number" required />
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="age">العمر</label>
+                <input type="text" class="form-control card" name="age" required />
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="sport_field">المجال الرياضي</label>
+                <select id="sport_field" name="sport_field" class="form-control card text-right" dir="rtl" required>
+                  <option value="" disabled selected>اختر المجال الرياضي</option>
+                  <option value="كرة القدم">كرة القدم</option>
+                  <option value="كرة السلة">كرة السلة</option>
+                  <option value="السباحة">السباحة</option>
+                  <option value="الكرة الطائرة">الكرة الطائرة</option>
+                  <option value="التنس">التنس</option>
+                  <option value="ألعاب القوى">ألعاب القوى</option>
+                  <option value="الفنون القتالية">الفنون القتالية</option>
+                  <option value="رفع الأثقال">رفع الأثقال</option>
+                  <option value="الجمباز">الجمباز</option>
+                  <option value="ركوب الدراجات">ركوب الدراجات</option>
+                  <option value="الرياضات الإلكترونية">الرياضات الإلكترونية</option>
+                </select>
+              </div>
+
+              <div class="form-group text-right">
+                <label for="position">التخصص الرياضي</label>
+                <input type="text" class="form-control card" name="position" required />
+              </div>
+
+              <div class="form-group">
+                <label class="float-right">المهارات</label>
+                <div id="skills-container">
+                  <input type="text" name="skills[]" class="form-control mb-2 text-right card">
+                </div>
+                <button type="button" id="add-skill" class="btn btn-secondary btn-sm">إضافة مهارة أخرى</button>
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="height">الطول</label>
+                <input type="text" class="form-control card" name="height" required />
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="password">كلمة المرور</label>
+                <input type="password" class="form-control card" name="password" />
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="password">إعادة كلمة المرور</label>
+                <input type="password" class="form-control card" name="password2" />
+              </div>
             </div>
 
-            <div class="form-group" style="text-align: right;">
-              <label for="password">كلمة المرور</label>
-              <input type="password" class="form-control card" name="password" />
+            <!-- بيانات الكاشف -->
+            <div id="scout-fields" class="form-section">
+              <div class="form-group text-right">
+                <label for="scout_name">الاسم </label>
+                <input type="text" class="form-control card" name="scout_name" required />
+              </div>
+
+              <div class="form-group text-right">
+                <label for="username">اسم المستخدم</label>
+                <input type="text" class="form-control card" name="username" required />
+              </div>
+
+              <div class="form-group text-right">
+                <label for="email">البريد الالكتروني</label>
+                <input type="email" class="form-control card" name="email" />
+              </div>
+
+              <div class="form-group text-right">
+                <label for="phone_number">رقم الجوال</label>
+                <input type="text" class="form-control card" name="phone_number" required />
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="sport_field">المجال الرياضي</label>
+                <select id="sport_field" name="sport_field" class="form-control card text-right" dir="rtl" required>
+                  <option value="" disabled selected>اختر المجال الرياضي</option>
+                  <option value="كرة القدم">كرة القدم</option>
+                  <option value="كرة السلة">كرة السلة</option>
+                  <option value="السباحة">السباحة</option>
+                  <option value="الكرة الطائرة">الكرة الطائرة</option>
+                  <option value="التنس">التنس</option>
+                  <option value="ألعاب القوى">ألعاب القوى</option>
+                  <option value="الفنون القتالية">الفنون القتالية</option>
+                  <option value="رفع الأثقال">رفع الأثقال</option>
+                  <option value="الجمباز">الجمباز</option>
+                  <option value="ركوب الدراجات">ركوب الدراجات</option>
+                  <option value="الرياضات الإلكترونية">الرياضات الإلكترونية</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="other_sport">في حال اختيار اخرى، يرجى تحديد المجال الرياضي</label>
+                <input type="text" name="other_sport" class="form-control card" style="display: none;">
+              </div>
+
+              <div class="form-group text-right">
+                <label for="organization">الجهة</label>
+                <input type="text" class="form-control card" name="organization" required />
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="position">التخصص أو الدور الوظيفي</label>
+                <input type="text" class="form-control card" name="position" required />
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="experience">عدد سنوات الخبرة</label>
+                <input type="number" class="form-control card" name="experience" required />
+              </div>
+
+              <!-- حقل المهارات (للموهوب فقط) -->
+              <div id="talent-skills-container" class="form-group" style="display: none;">
+                <label class="float-right">المهارات</label>
+                <div id="skills-list">
+                  <input type="text" name="skills[]" class="form-control mb-2 text-right card">
+                </div>
+                <button type="button" id="add-skill" class="btn btn-secondary btn-sm">إضافة مهارة أخرى</button>
+              </div>
+
+
+              <!-- قائمة المدن السعودية -->
+              <div class="form-group" style="text-align: right;">
+                <label for="city">المدينة</label>
+                <select id="city" name="city" class="form-control card text-right" dir="rtl" required>
+                  <option value="" disabled selected>اختر المدينة</option>
+                  <option value="الرياض">الرياض</option>
+                  <option value="جدة">جدة</option>
+                  <option value="مكة">مكة</option>
+                  <option value="الدمام">الدمام</option>
+                  <option value="الخبر">الخبر</option>
+                  <option value="المدينة المنورة">المدينة المنورة</option>
+                  <option value="الطائف">الطائف</option>
+                  <option value="ابها">أبها</option>
+                  <option value="القصيم">القصيم</option>
+                  <option value="تبوك">تبوك</option>
+                  <option value="حائل">حائل</option>
+                  <option value="المنطقة الشرقية">المنطقة الشرقية</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="password">كلمة المرور</label>
+                <input type="password" class="form-control card" name="password" />
+              </div>
+
+              <div class="form-group" style="text-align: right;">
+                <label for="password">إعادة كلمة المرور</label>
+                <input type="password" class="form-control card" name="password2" />
+              </div>
+
             </div>
-      
-            <div class="form-group" style="text-align: right;">
-              <label for="password">إعادة كلمة المرور</label>
-              <input type="password" class="form-control card" name="password2" />
+
+
+            <!-- زر التسجيل -->
+            <div>
+              <button type="submit" id="submit-btn" class="btn btn-info btn-block mt-4"
+                style="background-color:#0dcaf087; color: rgb(255, 255, 255);">تسجيل</button>
             </div>
 
-          </div>
-      
-
-    <!-- زر التسجيل -->
-    <div class="text-center mt-4">
-      <input type="submit" id="submit-btn" class="btn btn-info btn-block mt-4" value="تسجيل"
-      style="background-color:#0dcaf087; color: rgb(255, 255, 255);" />
-    </div>
-    </form>
-  </div>
-
-      
+          </form>
         </div>
+
+
       </div>
     </div>
   </div>
+  </div>
 
 
-  
+
 
   <!-- Footer -->
   <footer class="mt-5 p-4 text-center" style=" color: #ddd;">
@@ -422,51 +340,101 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const accountTypeRadios = document.querySelectorAll('input[name="account_type"]');
-        const talentFields = document.getElementById("talent-fields");
-        const scoutFields = document.getElementById("scout-fields");
-        const sportField = document.getElementById("sport_field");
-        const otherSportField = document.getElementById("other_sport");
-        const submitBtn = document.getElementById("submit-btn");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const accountTypeRadios = document.querySelectorAll('input[name="account_type"]');
+  const talentFields = document.getElementById("talent-fields");
+  const scoutFields = document.getElementById("scout-fields");
+  const sportField = document.getElementById("sport_field");
+  const otherSportField = document.querySelector('input[name="other_sport"]');
+  const submitBtn = document.getElementById("submit-btn");
+  const form = document.querySelector('form');
+
+  // Get elements
+  const addSkillBtn = document.getElementById("add-skill");
+  const skillsContainer = document.getElementById("skills-container");
   
-        // إخفاء الحقول وزر التسجيل عند تحميل الصفحة
-        talentFields.style.display = "none";
+  // Initially hide sections
+  talentFields.style.display = "none";
+  scoutFields.style.display = "none";
+  submitBtn.style.display = "none";
+  
+  // Disable all required fields initially
+  disableRequiredFields(talentFields);
+  disableRequiredFields(scoutFields);
+
+  accountTypeRadios.forEach(radio => {
+    radio.addEventListener("change", function () {
+      if (this.value === "talent") {
+        // Show talent fields, hide scout fields
+        talentFields.style.display = "block";
         scoutFields.style.display = "none";
-        submitBtn.style.display = "none";
+        submitBtn.style.display = "block";
+        
+        // Enable only visible required fields
+        enableRequiredFields(talentFields);
+        disableRequiredFields(scoutFields);
+      } else if (this.value === "scout") {
+        // Show scout fields, hide talent fields
+        scoutFields.style.display = "block";
+        talentFields.style.display = "none";
+        submitBtn.style.display = "block";
+        
+        // Enable only visible required fields
+        enableRequiredFields(scoutFields);
+        disableRequiredFields(talentFields);
+      }
+    });
+  });
+
+  // Sports field change handling
+  sportField.addEventListener("change", function () {
+    if (this.value === "أخرى") {
+      otherSportField.style.display = "block";
+      otherSportField.required = true;
+    } else {
+      otherSportField.style.display = "none";
+      otherSportField.required = false;
+    }
+  });
+
+  // Add skill button functionality
+  addSkillBtn.addEventListener("click", function () {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.name = "skills[]";
+    input.classList.add("form-control", "mb-2", "text-right", "card");
+    skillsContainer.appendChild(input);
+  });
   
-        accountTypeRadios.forEach(radio => {
-          radio.addEventListener("change", function () {
-            if (this.value === "talent") {
-              talentFields.style.display = "block";
-              scoutFields.style.display = "none";
-              submitBtn.style.display = "block"; // إظهار زر التسجيل بعد اختيار نوع الحساب
-            } else if (this.value === "scout") {
-              scoutFields.style.display = "block";
-              talentFields.style.display = "none";
-              submitBtn.style.display = "block"; // إظهار زر التسجيل بعد اختيار نوع الحساب
-            }
-          });
-        });
+  // Helper functions to enable/disable required attributes
+  function disableRequiredFields(container) {
+    if (!container) return;
+    const requiredFields = container.querySelectorAll('[required]');
+    requiredFields.forEach(field => {
+      field.required = false;
+    });
+  }
   
-        sportField.addEventListener("change", function () {
-          otherSportField.style.display = this.value === "أخرى" ? "block" : "none";
-        });
+  function enableRequiredFields(container) {
+    if (!container) return;
+    const requiredFields = container.querySelectorAll('input, select');
+    requiredFields.forEach(field => {
+      // Check if the field had the required attribute in the original HTML
+      if (field.hasAttribute('required') || field.getAttribute('data-was-required') === 'true') {
+        field.required = true;
+      }
+    });
+  }
   
-        const addSkillBtn = document.getElementById("add-skill");
-        const skillsContainer = document.getElementById("skills-container");  
-  
-        addSkillBtn.addEventListener("click", function () {
-          const input = document.createElement("input");
-          input.type = "text";
-          input.name = "skills[]";
-          input.classList.add("form-control", "mb-2", "text-right", 'card');
-          skillsContainer.appendChild(input);
-        });
-      });
-    </script>
-    
+  // Store original required state on page load
+  document.querySelectorAll('[required]').forEach(field => {
+    field.setAttribute('data-was-required', 'true');
+  });
+});
+  </script>
+
+
 </body>
 
 </html>

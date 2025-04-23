@@ -104,7 +104,8 @@ class ChatUtils:
                 f"- Motivational and goal-oriented\n"
                 f"- Actionable, with specific steps or strategies\n"
                 f"- Easy to understand, even for beginners"
-                f"-Write in Arabic as the user speaks Arabic."
+                f"- Write in Arabic as the user speaks Arabic."
+                 f"**If the information found does not match the user’s input, ignore the information and answer the user’s question based on your expertise.**"
             )
 
         else:  # health context
@@ -119,6 +120,7 @@ class ChatUtils:
                 f"- Offers actionable tips or routines (e.g., sleep, recovery, nutrition, stress)\n"
                 f"- Clear and accessible to all levels of users"
                 f"-Write in Arabic as the user speaks Arabic."
+                f"**If the information found does not match the user’s input, ignore the information and answer the user’s question based on your expertise.**"
             )
 
         chat_completion = client.chat.completions.create(

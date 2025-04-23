@@ -227,51 +227,83 @@ def login():
 def register():
     return render_template("register.html") 
 
-@app.route('/create-profile', methods=['POST'])
+@app.route('/create_profile', methods=['POST'])
 def create_profile():
     if request.method == 'POST':
-        # الحصول على البيانات من النموذج
-        account_type = request.form['account_type']
-        name = request.form['name']
-        username = request.form['username']
-        email = request.form['email']
-        phone_number = request.form['phone_number']
-        sport_field = request.form['sport_field']
-        other_sport = request.form.get('other_sport', '')
-        position = request.form['position']
-        skills = ','.join(request.form.getlist('skills[]'))
-        height = request.form['height']
-        password = request.form['password']
-        city = request.form['city']
+        try:
+            # Print all form data for debugging
+            print("Form data:", request.form)
+            
+            # Get common fields
+            account_type = request.form.get('account_type')
+            
+            if not account_type:
+                # Missing account type
+                # flash("نوع الحساب مطلوب", "danger")
+                return redirect(url_for('register'))
+                
+            # Get common fields with empty string defaults if missing
+            name = request.form.get('name', '')
+            username = request.form.get('username', '')
+            email = request.form.get('email', '')
+            phone_number = request.form.get('phone_number', '')
+            password = request.form.get('password', '')
+            
+            # Handle different fields based on account type
+            if account_type == "talent":
+                # Use the appropriate field names for talents
+                name = request.form.get('name', '')
+                sport_field = request.form.get('sport_field', '')
+                position = request.form.get('position', '')
+                age = request.form.get('age', '')
+                height = request.form.get('height', '')
+                
+                # Handle skills array
+                skills = request.form.getlist('skills[]')
+                skills_str = ','.join(filter(None, skills))  # Filter out empty strings
+                
+                ai_rating = 89.00  # Default value
 
-        # بيانات الكاشف (تكون موجودة فقط عند اختيار نوع الحساب "كاشف")
-        scout_name = request.form.get('scout_name', '')
-        organization = request.form.get('organization', '')
-        experience = request.form.get('experience', '')
-        scout_skills = ','.join(request.form.getlist('scout_skills[]'))
+                sql = """
+                    INSERT INTO talenters (name, username, age, sport_field, position, skills, ai_rating, height, password, phone_number, email)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                values = (name, username, age, sport_field, position, skills_str, ai_rating, height, password, phone_number, email)
+                
+                print("Talent values:", values)  # Debug output
+                cursor.execute(sql, values)
 
-        # إذا كان نوع الحساب "موهوب"، نقوم بتخزين البيانات في جدول الموهوبين
-        if account_type == "talent":
-            sql = """
-            INSERT INTO talenters (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            values = (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city)
-            cursor.execute(sql, values)
-        
-        # إذا كان نوع الحساب "كاشف"، نقوم بتخزين البيانات في جدول الكاشفين
-        elif account_type == "scout":
-            sql = """
-            INSERT INTO scouts (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city, scout_name, organization, experience, scout_skills)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """
-            values = (name, username, email, phone_number, sport_field, other_sport, position, skills, height, password, city, scout_name, organization, experience, scout_skills)
-            cursor.execute(sql, values)
-        
-        # حفظ البيانات في قاعدة البيانات
-        db.commit()
+            elif account_type == "scout":
+                # Use the appropriate field names for scouts
+                name = request.form.get('scout_name', '')
+                sport_field = request.form.get('sport_field', '')
+                position = request.form.get('position', '')
+                organization = request.form.get('organization', '')
+                experience = request.form.get('experience', '')
+                city = request.form.get('city', '')
 
-        return redirect(url_for('login'))
+                sql = """
+                    INSERT INTO scouts (name, username, email, phone_number, sport_field, position, password, city, organization, experience)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                values = (name, username, email, phone_number, sport_field, position, password, city, organization, experience)
+                
+                print("Scout values:", values)  # Debug output
+                cursor.execute(sql, values)
+            
+            db.commit()
+            # flash("تم إنشاء الحساب بنجاح", "success")
+            return redirect(url_for('login'))
+            
+        except Exception as e:
+            # Print the error for debugging
+            print("Error saving data:", str(e))
+            db.rollback()
+            # flash("حدث خطأ أثناء إنشاء الحساب", "danger")
+            return redirect(url_for('register'))
+
+    # If not POST method
+    return redirect(url_for('register'))
 
 
 
