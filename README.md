@@ -69,6 +69,47 @@ These instructions will get the project running on your local machine for develo
   python app.py
   ```
 
-### Requirements
-  
-  SQL Server with a database named mawheb using the schema defined below.
+### Database Schema
+
+This project uses **SQL Server** with a database named `mawheb`. Below are the two main tables used in the schema:
+
+#### `talenters`
+
+Stores information about talented individuals who are seeking to be discovered.
+
+```sql
+CREATE TABLE talenters (
+  id INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  username VARCHAR(50),
+  age INT NOT NULL,
+  sport_field VARCHAR(100) NOT NULL,
+  position VARCHAR(100) NOT NULL,
+  skills TEXT NOT NULL,
+  ai_rating VARCHAR(100),
+  height INT NOT NULL,
+  password VARCHAR(100),
+  phone_number VARCHAR(20),
+  email VARCHAR(255) NOT NULL
+);
+```
+
+#### `scouts`
+Holds information about scouts who are searching for talent.
+
+
+```sql
+CREATE TABLE scouts (
+  id INT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL,
+  email VARCHAR(255),
+  phone_number VARCHAR(15),
+  sport_field VARCHAR(100),
+  position VARCHAR(100),
+  password VARCHAR(255),
+  city VARCHAR(100),
+  organization VARCHAR(255),
+  experience INT
+);
+```
