@@ -5,7 +5,7 @@ from googlesearch import search
 from bs4 import BeautifulSoup
 
 # Set your Groq API Key
-groq_api_key = "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"
+groq_api_key = "gsk_xxx"
 client = Groq(api_key=groq_api_key)
 
 class ChatUtils:
