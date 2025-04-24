@@ -53,7 +53,7 @@ These instructions will get the project running on your local machine for develo
    ```
 2. Install backend dependencies:
   ```bash
-  npnpm install
+  npm install
   cd client
   npm install
   cd ..
