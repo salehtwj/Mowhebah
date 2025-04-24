@@ -104,7 +104,7 @@ You are a professional expert in discovering and evaluating athletic talents.
 
 arabic_prompt = PromptTemplate(template=prompt, input_variables=["context", "query"])
 
-key_API = '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'
+key_API = 'gsk_xxx'
 LLM = ChatGroq(temperature=0, groq_api_key=key_API, model_name="llama3-70b-8192")
 model = LLMChain(llm=LLM, prompt=arabic_prompt, verbose=True)
 
